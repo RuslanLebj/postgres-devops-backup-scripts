@@ -9,7 +9,7 @@ SELECT
 
     -- Случайная дата рождения от 1980 до 2010 года
     date '1980-01-01' + (random() * (date '2010-12-31' - date '1980-01-01'))::int
-FROM generate_series(1, 50);
+FROM generate_series(1, 350);
 
 -- Вставка 50 случайных courses
 INSERT INTO course (course_name, course_description)
@@ -76,3 +76,28 @@ FROM
 ON CONFLICT (student_id, course_id) DO NOTHING;
 
 
+-- Генерация 50 случайных student в таблицу с секционировнием по hash
+INSERT INTO student_by_last_name (first_name, last_name, birth_date)
+SELECT 
+    -- Случайный выбор имени из списка
+    (ARRAY['John', 'Jane', 'Alice', 'Mark', 'Sophia', 'Michael', 'Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Ethan', 'Isabella', 'Lucas', 'Mia', 'Henry', 'Amelia', 'James', 'Ella', 'Jack'])[floor(random() * 20 + 1)],
+
+    -- Случайный выбор фамилии из списка
+    (ARRAY['Doe', 'Smith', 'Johnson', 'Brown', 'Williams', 'Jones', 'Miller', 'Davis', 'Garcia', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin'])[floor(random() * 20 + 1)],
+
+    -- Случайная дата рождения от 1980 до 2010 года
+    date '1980-01-01' + (random() * (date '2010-12-31' - date '1980-01-01'))::int
+FROM generate_series(1, 350);
+
+-- Генерация 50 случайных students
+INSERT INTO student_flat (first_name, last_name, birth_date)
+SELECT 
+    -- Случайный выбор имени из списка
+    (ARRAY['John', 'Jane', 'Alice', 'Mark', 'Sophia', 'Michael', 'Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Ethan', 'Isabella', 'Lucas', 'Mia', 'Henry', 'Amelia', 'James', 'Ella', 'Jack'])[floor(random() * 20 + 1)],
+
+    -- Случайный выбор фамилии из списка
+    (ARRAY['Doe', 'Smith', 'Johnson', 'Brown', 'Williams', 'Jones', 'Miller', 'Davis', 'Garcia', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin'])[floor(random() * 20 + 1)],
+
+    -- Случайная дата рождения от 1980 до 2010 года
+    date '1980-01-01' + (random() * (date '2010-12-31' - date '1980-01-01'))::int
+FROM generate_series(1, 350);
